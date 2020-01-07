@@ -49,7 +49,12 @@ RSpec.shared_examples 'two_factor_authenticatable' do
         end
 
         it 'fails to validate' do
-          expect(subject.validate_and_consume_otp!(consumed_otp)).to be false
+          lol = []
+          10000.times do
+            lol << subject.validate_and_consume_otp!(consumed_otp)
+            travel 1.seconds
+          end
+          expect(lol.any? true).to eq(false)
         end
       end
 
